@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login Form</title>
+
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/login.css">
+<script type="text/javascript"
+	src="../templates/hytpl/js/lib/jquery-1.8.2.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+$(document).ready(
+	function(){
+		$("#button").click(
+			function(){
+				post_form();
+			}		
+		)	
+	}
+)
+
+
+function post_form(){
+	var url = "action.php";
+	var name = document.getElementById("account").value;
+	var pass = document.getElementById("pass").value;
+	//alert(name);
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp = new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	var postChar = "account="+account+"&pass="+pass;
+	xmlhttp.open("POST",url,true);
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xmlhttp.send(postChar);
+	xmlhttp.onreadystatechange = function(){
+		if(xmlhttp.readyState == 4){
+			var msg = xmlhttp.responseText;
+			alert(msg);
+			if(msg == "1"){
+				alert("登陆成功");
+			}
+			else {
+				alert("用户名或密码错误\n请重新输入！");
+			}
+		}
+	}
+}
+
+
+</script>
+
+</head>
+
+<body>
+
+	<div class="login">
+		<h1>登陆</h1>
+		<form method="post" action="action.php">
+			<input type="text" name="account" placeholder="用户名"
+				required="required" /> <input type="password" name="pass"
+				placeholder="密码" required="required" />
+<button type="submit" class="btn btn-primary btn-block btn-large" id="buttons">
+登陆</button>
+		</form>
+	</div>
+	<div style="text-align: center;">
+		<h1>管理系统登陆</h1>
+	</div>
+
+
+</body>
+</html>
